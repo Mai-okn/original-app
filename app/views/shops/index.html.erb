@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="shop.css">
     <title>アプリ名</title>
+
+      <script src ="jquery-3.6.0.min.js"></script>
+
   </head>
   <body>
     <header>
@@ -21,46 +24,58 @@
 
     <div class="contents">
       <div class="first-view">
-        <img src="images/top.jpg" alt="トップ画像" class="top-image">
+
+        <%= image_tag "images/top.jpg", class:"top-image" %>
+
       </div>
 
       <div class='shop-contents'>
         <h2 class='title'>お店一覧</h2>
         <ul class='shop-lists'>
-          <li class='list'>
-            <div class='shop-img-content'>
-              <img src="images/shop1.jpg" alt="shop1" class="shop-image">
-            </div>
-            <div class='shop-info'>
-              <h3 class='shop-name'>
-                店名
-              </h3>
-              <div class='shop-price'>
-                価格帯
-                <div class='star-btn'>
-                  評価
-                  <span class='star-count'>0</span>
+
+
+          <% @items.each do |item| %>
+            <li class='list'>
+              <%= link_to item_path(item.id) do %>
+                <div class='shop-img-content'>
+                  <%= image_tag shop.image, class: "shop-image" %>
+                </div>
+                <div class='shop-info'>
+                  <h3 class='shop-name'>
+                    <%= shop.name %>
+                  </h3>
+                  <div class='shop-price'>
+                    <span><%= shop.price %>円</span>
+                    <div class='star-btn'>
+                      <%= image_tag "star.png", class:"star-icon" %>
+                      <span class='star-count'>0</span>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+
+          <% if @items.length == 0 %>
+            <li class='list'>
+              <%= link_to '#' do %>
+              <%= image_tag "images/shop2.jpg", class: "shop-image" %>
+              <div class='shop-info'>
+                <h3 class='shop-name'>
+                  サンプル
+                </h3>
+                <div class='shop-price'>
+                  <span>2000~3000円</span>
+                  <div class='star-btn'>
+                    <%= image_tag "star.png", class:"shop-image" %>
+                    <span class='star-count'>0</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-          <li class='list'>
-            <div class='shop-img-content'>
-              <img src="images/shop2.jpg" alt="shop2" class="shop-image">
-            </div>
-            <div class='shop-info'>
-              <h3 class='shop-name'>
-                店名
-              </h3>
-              <div class='shop-price'>
-                価格帯
-                <div class='star-btn'>
-                  評価
-                  <span class='star-count'>0</span>
-                </div>
-              </div>
-            </div>
-          </li>
+              <% end %>
+            </li>
+          <% end %>
+
         </ul>
       </div>
 
